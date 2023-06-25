@@ -1,0 +1,7 @@
+{
+  "AzureServiceBusConnectionString": "",
+  "RedditAppSecret": "",
+  "RedditRefreshToken": "",
+  "RedditAppId": "",
+  "AZURE_STORAGE_ACCOUNT": ""
+}

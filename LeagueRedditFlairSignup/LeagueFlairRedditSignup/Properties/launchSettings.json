@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LeagueFlairRedditSignup": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

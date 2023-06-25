@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LeagueFlairUpdateJob": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

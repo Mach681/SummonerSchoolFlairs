@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LeagueFlairRedditUpdateService": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

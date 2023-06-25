@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# I heavily use local.appsettings.json to store secrets.  It should never be committed.
+local.appsettings.json
+
+# I don't care to store .sln files.  If someone wants to make their own, they can.  Each csproj is intentionally a solo microservice.
+*.sln
