@@ -103,14 +103,9 @@ app.MapGet("/oauth-callback", async Task<IResult> (HttpContext context) =>
                 _ = await storageHelper.DeleteCloudTableAsync("RedditFlairUser", user);
 
                 return Results.Content("<!DOCTYPE html><html><head><title>Summoner School Flair Successfully Registered!</title><meta http-equiv = \"refresh\" content = \"3; url = https://www.reddit.com/r/summonerschool/\" /></head><body><p>You've successfully registered!  This page will redirect to https://www.reddit.com/r/summonerschool in 3 seconds.</p></body></html>", "text/html", Encoding.UTF8);
-
-                //return "<!DOCTYPE html><html><head><title>Summoner School Flair Successfully Registered!</title><meta http-equiv = \"refresh\" content = \"3; url = https://www.reddit.com/r/summonerschool/\" /></head><body><p>This page will redirect to https://www.reddit.com/r/summonerschool/ in 3 seconds.</p></body></html>";
-                //return "You've successfully registered.  You can now close this page.";
             }
         }
     }
-
-    //return response.Content + "\n\n" + riotTokenString;
 
     return Results.Text($"Something went wrong.  Please try again.  If this continues to happen, please contact the moderators and give them this error: {responseError}");
 });
