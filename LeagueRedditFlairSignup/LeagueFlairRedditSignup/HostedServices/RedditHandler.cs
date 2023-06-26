@@ -67,6 +67,15 @@ namespace LeagueFlairRedditSignup.HostedService
             // Loop to handle all the posts the RedditClient found since the last time.
             foreach (Post post in e.Added)
             {
+                // For some reason, the bot has been responding sporadically to older posts.
+                // From what I can see, this is a weirdness in the Reddit API.  Check if the post is older than 3 days old.
+                // Links expire after 2 days anyway, so 3 days old is essentially "forever"
+                if (post.Created < DateTime.UtcNow.AddDays(-3))
+                {
+                    // Old post, do nothing.
+                    continue;
+                }
+
                 // LeagueFlairSignup is a class that will be turned into Json and stored in Azure Table Storage.
                 // This represents the data that will sit in the table.
                 LeagueFlairSignup user = new()
