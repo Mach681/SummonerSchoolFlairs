@@ -1,4 +1,5 @@
-﻿using Azure.Messaging.ServiceBus;
+﻿using Azure.Core;
+using Azure.Messaging.ServiceBus;
 using LeagueFlairRiotUpdateService.Classes;
 using LeagueFlairRiotUpdateService.Helpers;
 using Microsoft.Extensions.Configuration;
@@ -112,26 +113,47 @@ namespace LeagueFlairRiotUpdateService.Handlers
 
             RiotApi api = RiotApi.NewInstance(_config.GetValue<string>("RIOT_API_KEY"));
 
-            // Make sure we have the region (and get Summoner ID while we're at it).
+            // Make sure we have the region
             if (string.IsNullOrEmpty(info.Region))
             {
-                foreach (Region region in regions)
+                // Get region from Auth /userinfo.
+                // Use access token.
+                // Region is the cpid field.
+                RestClient restClient = new(_config.GetValue<string>("RIOT_BASE_AUTH_URL"));
+                RestRequest restRequest = new("/userinfo", Method.Get);
+                restRequest.AddHeader("Authorization", $"Bearer {info.Access_Token}");
+
+                RestResponse<UserInfoResponse> response = await restClient.ExecuteAsync<UserInfoResponse>(restRequest);
+
+                if (response.IsSuccessful)
                 {
-                    Summoner? summoner = await api.SummonerV4.GetByPUUIDAsync(region, info.Summoner_Puuid);
-                    if (summoner is not null)
+                    if (!string.IsNullOrWhiteSpace(response?.Data?.CPID))
                     {
-                        info.Region = region.Key;
-                        info.Summoner_Id = summoner.Id;
-                        info.Summoner_Name = summoner.Name;
-                        await _storageHelper.UpsertCloudTable("SummonerInfo", info);
-                        break;
+                        info.Region = response.Data.CPID.ToLowerInvariant();
                     }
                 }
+                else
+                {
+                    Console.WriteLine("No valid region determined.  Quitting.");
+                }
+
+                //foreach (Region region in regions)
+                //{
+                //    Summoner? summoner = await api.SummonerV4.GetByPUUIDAsync(region, info.Summoner_Puuid);
+                //    if (summoner is not null)
+                //    {
+                //        info.Region = region.Key;
+                //        info.Summoner_Id = summoner.Id;
+                //        info.Summoner_Name = summoner.Name;
+                //        await _storageHelper.UpsertCloudTable("SummonerInfo", info);
+                //        break;
+                //    }
+                //}
             }
 
             Region infoRegion = new Region(info.Region, info.Region);
 
-            // Get Summoner Id.  Shouldn't really hit this because it should be 1 to 1 with regions, but I'm paranoid.
+            // Make sure we have the Summoner Id.
             if (string.IsNullOrEmpty(info.Summoner_Id))
             {
                 Summoner? summoner = new();// = await api.SummonerV4.GetByPUUIDAsync(infoRegion, info.Summoner_Puuid);

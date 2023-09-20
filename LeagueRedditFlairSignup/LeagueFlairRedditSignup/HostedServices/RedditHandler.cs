@@ -121,7 +121,7 @@ namespace LeagueFlairRedditSignup.HostedService
                         $"\n\n" +
                         $"Note: For security, always hover over the link and check that it starts with https://auth.riotgames.com." +
                         $"\n\n" +
-                        $"https://auth.riotgames.com/authorize?redirect_uri=https://r-summonerschool.com/oauth-callback&client_id=487f4881-c787-4da6-bb2b-ce7cabbff312&response_type=code&scope=openid&state={user.State}" +
+                        $"https://auth.riotgames.com/authorize?redirect_uri=https://r-summonerschool.com/oauth-callback&client_id=487f4881-c787-4da6-bb2b-ce7cabbff312&response_type=code&prompt=login&scope=openid+cpid&state={user.State}" +
                         $"\n\n" +
                         $"This link will be valid for 2 days.");
                 }
