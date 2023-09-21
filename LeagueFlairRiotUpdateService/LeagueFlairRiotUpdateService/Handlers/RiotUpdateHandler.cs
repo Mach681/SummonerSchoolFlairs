@@ -137,19 +137,6 @@ namespace LeagueFlairRiotUpdateService.Handlers
                 {
                     Console.WriteLine("No valid region determined.  Quitting.");
                 }
-
-                //foreach (Region region in regions)
-                //{
-                //    Summoner? summoner = await api.SummonerV4.GetByPUUIDAsync(region, info.Summoner_Puuid);
-                //    if (summoner is not null)
-                //    {
-                //        info.Region = region.Key;
-                //        info.Summoner_Id = summoner.Id;
-                //        info.Summoner_Name = summoner.Name;
-                //        await _storageHelper.UpsertCloudTable("SummonerInfo", info);
-                //        break;
-                //    }
-                //}
             }
 
             Region infoRegion = new Region(info.Region, info.Region);
