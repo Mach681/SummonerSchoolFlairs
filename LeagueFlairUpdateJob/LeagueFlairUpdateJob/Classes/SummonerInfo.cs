@@ -44,7 +44,7 @@ namespace LeagueFlairUpdateJob.Classes
         public DateTime Last_Updated { get; set; } = DateTime.UtcNow;
 
         [JsonPropertyName("last_riot_updated")]
-        public DateTime Last_Riot_Updated { get; set; } = DateTime.UtcNow;
+        public DateTime Last_Riot_Updated { get; set; } = DateTime.MinValue;
 
         [JsonIgnore]
         public string PartitionKey { get; set; } = string.Empty;

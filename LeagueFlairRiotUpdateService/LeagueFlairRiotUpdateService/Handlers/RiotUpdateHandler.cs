@@ -199,6 +199,10 @@ namespace LeagueFlairRiotUpdateService.Handlers
 
                 await _storageHelper.SendServiceBusMessage(outboundMessage);
             }
+
+            // Indicate that we've updated.
+            info.Last_Riot_Updated = DateTime.UtcNow;
+            await _storageHelper.UpsertCloudTable("SummonerInfo", info);
         }
     }
 }
