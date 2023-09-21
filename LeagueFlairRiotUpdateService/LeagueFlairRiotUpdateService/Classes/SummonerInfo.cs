@@ -62,7 +62,7 @@ namespace LeagueFlairRiotUpdateService.Classes
         public string Region { get; set; } = string.Empty;
 
         [JsonPropertyName("last_riot_updated")]
-        public DateTime? Last_Riot_Updated { get; set; } // No default.  I want to set this by hand.
+        public DateTime? Last_Riot_Updated { get; set; } = DateTime.UtcNow;
 
         [JsonPropertyName("summoner_Name")]
         public string Summoner_Name { get; set; } = string.Empty;
