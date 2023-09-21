@@ -79,6 +79,7 @@ namespace LeagueFlairRiotUpdateService.Handlers
                     request2.AddParameter("client_assertion", riotTokenString);
                     request2.AddParameter("grant_type", "refresh_token");
                     request2.AddParameter("refresh_token", info.Refresh_Token);
+                    request2.AddParameter("scope", "openid+cpid");
 
                     RestResponse response2 = await restClient2.ExecuteAsync(request2);
 
